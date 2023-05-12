@@ -10,8 +10,7 @@ from courses.models import Classroom
 from courses.serializer import UserSerializer
 from exercises.computed import score_percentage
 from exercises.models import Lesson, Exercise, ExerciseChoices, Assignment
-from exercises.serializer import LessonSerializer, ExerciseSerializer, SubExercisesSerializer, AssignmentSerializer, \
-    ExerciseDetailSerializer
+from exercises.serializer import LessonSerializer, ExerciseSerializer, SubExercisesSerializer, AssignmentSerializer
 
 
 class LessonList(generics.ListCreateAPIView):
@@ -66,8 +65,8 @@ class ExerciseList(generics.ListCreateAPIView):
 
 class ExerciseDetail(generics.RetrieveDestroyAPIView, generics.RetrieveUpdateAPIView):
     queryset = Exercise.objects.all()
-    serializer_class = ExerciseDetailSerializer
-    permission_classes = [IsStaffUser]
+    serializer_class = ExerciseSerializer
+    permission_classes = [IsAdminUserOrReadOnly]
 
     def get_object(self):
         exercise_id = self.kwargs.get('exercise')
